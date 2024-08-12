@@ -203,12 +203,13 @@ export async function getStatsAction(): Promise<{
   }
 }
 
-export async function getChartsDataAction(): Promise<Array<{ date: string; count: number }> {
+export async function getChartsDataAction(): Promise<
+  Array<{ date: string; count: number }>
+> {
   const userId = authenticateAndRedirect();
   const sixMonthsAgo = dayjs().subtract(6, "month").toDate();
 
   try {
-    
     const jobs = await prisma.job.findMany({
       where: {
         clerkId: userId,
@@ -219,7 +220,7 @@ export async function getChartsDataAction(): Promise<Array<{ date: string; count
       orderBy: {
         createdAt: "asc",
       },
-    })
+    });
 
     // console.log(jobs);
 
@@ -228,8 +229,7 @@ export async function getChartsDataAction(): Promise<Array<{ date: string; count
 
       const existingEntry = acc.find((entry) => entry.date === date);
 
-
-      if (existingEntry) { 
+      if (existingEntry) {
         existingEntry.count += 1;
       } else {
         acc.push({ date, count: 1 });
@@ -238,8 +238,7 @@ export async function getChartsDataAction(): Promise<Array<{ date: string; count
       return acc;
     }, [] as Array<{ date: string; count: number }>);
 
-    return applicationsPerMonth
-    
+    return applicationsPerMonth;
   } catch (error) {
     redirect("/jobs");
   }
