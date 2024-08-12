@@ -56,7 +56,8 @@ export async function getAllJobsAction({
   totalPages: number;
 }> {
   const userId = authenticateAndRedirect();
-
+  // console.log(userId);
+  // user_2kSGaln0jZgJA7XkYnmzWAt6QLO
   try {
     let whereClause: Prisma.JobWhereInput = {
       clerkId: userId,
