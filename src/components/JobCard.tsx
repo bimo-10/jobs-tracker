@@ -1,5 +1,7 @@
+"use client";
+
 import { JobType } from "@/utils/types";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -11,9 +13,18 @@ import {
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import DeleteJobButton from "./DeleteJobBtn";
+import DeleteJobButton from "./DeleteJobButton";
+import JobInfo from "./JobInfo";
+import { Briefcase, CalendarDays, MapPin, RadioTower } from "lucide-react";
+import { Badge } from "./ui/badge";
 
 export default function JobCard({ job }: { job: JobType }) {
+  // const date = new Date(job.createdAt).toLocaleDateString();
+  const [date, setDate] = useState("");
+
+  useEffect(() => {
+    setDate(new Date(job.createdAt).toLocaleDateString());
+  }, [job.createdAt]);
   return (
     <Card className="bg-muted">
       <CardHeader>
@@ -21,12 +32,22 @@ export default function JobCard({ job }: { job: JobType }) {
         <CardDescription>{job.company}</CardDescription>
       </CardHeader>
       <Separator />
-      <CardContent></CardContent>
+      <CardContent className="mt-4 grid grid-cols-2 gap-4">
+        <JobInfo icon={<Briefcase />} text={job.mode} />
+        <JobInfo icon={<MapPin />} text={job.location} />
+        <JobInfo icon={<CalendarDays />} text={date} />
+        <Badge className="w-32 justify-center">
+          <JobInfo
+            icon={<RadioTower className="w-4 h-4" />}
+            text={job.status}
+          />
+        </Badge>
+      </CardContent>
       <CardFooter className="flex gap-4">
         <Button asChild size="sm">
           <Link href={`/job/${job.id}`}>Edit</Link>
         </Button>
-        <DeleteJobButton />
+        <DeleteJobButton id={job.id} />
       </CardFooter>
     </Card>
   );
