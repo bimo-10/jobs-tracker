@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import React from "react";
 import JobCard from "./JobCard";
 import ButtonContainer from "./ButtonContainer";
+import ComplexButtonContainer from "./ComplexButtonContainer";
 
 export default function JobsList() {
   const searchParams = useSearchParams();
@@ -34,7 +35,7 @@ export default function JobsList() {
       <div className="flex items-center justify-between mb-8">
         <h2 className="capitalize text-xl font-semibold">{count} Jobs Found</h2>
         {totalPages < 2 ? null : (
-          <ButtonContainer currentPage={page} totalPages={totalPages} />
+          <ComplexButtonContainer currentPage={page} totalPages={totalPages} />
         )}
       </div>
       <div className="grid gap-8 md:grid-cols-2">
