@@ -7,7 +7,8 @@ export default function Home() {
   return (
     <main>
       <header className="max-w-6xl mx-auto px-4 sm:px-8 py-6 ">
-        <Image src={Logo} alt="logo" />
+        {/* <Image src={Logo} alt="logo" /> */}
+        <h1 className="text-4xl text-primary font-bold">Jobs Tracker</h1>
       </header>
       <section className="max-w-6xl mx-auto px-4 sm:px-8 h-screen -mt-20 grid lg:grid-cols-[1fr,400px] items-center">
         <div>
